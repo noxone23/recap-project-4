@@ -2,20 +2,17 @@ import "./Color.css";
 import { useState } from "react";
 import ColorForm from "../ColorForm/ColorForm";
 import CopyToClipboard from "../CopyToClipboard/CopyToClipboard";
+import ContrastChecker from "../ContrastChecker/ContrastChecker";
 
-export default function Color({ color }) {
+export default function Color({ color, onDeleteColor, onEditColor }) {
   const [isConfirming, setIsConfirming] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
-
   const [isEditing, setIsEditing] = useState(false);
   const [currentData, setCurrentData] = useState(color);
 
-  if (isDeleted) {
-    return null;
-  }
-
   function handleEditSubmit(updatedData) {
-    setCurrentData({ ...currentData, ...updatedData });
+    const updatedColor = { id: color.id, ...updatedData}
+    setCurrentData(updatedColor);
+    onEditColor(updatedColor);
     setIsEditing(false);
     setIsConfirming(false);
   }
@@ -24,7 +21,7 @@ export default function Color({ color }) {
     setIsConfirming(false);
   }
   function handleConfirmDelete() {
-    setIsDeleted(true);
+    onDeleteColor(color.id);
   }
   function handleShowConfirm() {
     setIsConfirming(true);
@@ -77,6 +74,8 @@ if (isEditing) {
       </div>
       <h4>{currentData.role}</h4>
       <p>contrast: {currentData.contrastText}</p>
+
+      <ContrastChecker hex={currentData.hex} contrastText={currentData.contrastText} />
 
       {buttonAction()}
     </div>

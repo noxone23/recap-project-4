@@ -9,3 +9,29 @@
   background: black;
   color: white;
 }
+
+.contrast-score {
+  display: block;
+  width: fit-content;
+  padding: 2px 6px;
+  font-weight: bold;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.contrast-score-Yup {
+  background-color: green;
+  color: white;
+}
+
+.contrast-score-Kinda {
+  background-color: orange;
+  color: white;
+}
+
+.contrast-score-Nope {
+  background-color: red;
+  color: white;
+}
+
+
