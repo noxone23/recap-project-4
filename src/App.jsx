@@ -13,8 +13,15 @@ function App() {
 
   function handleAddColor(data) {
     const newColor = { id: nanoid(), ...data };
-
     setColors([newColor, ...colors]);
+  }
+
+  function handleDeleteColor(id) {
+    setColors(colors.filter((color) => color.id !== id));
+  }
+
+  function handleEditColor(updatedColor) {
+    setColors(colors.map((color) => color.id === updatedColor.id ? updatedColor : color));
   }
 
   return (
@@ -23,7 +30,7 @@ function App() {
       <ColorForm onSubmitColor={handleAddColor} />
       
       {colors.map((color) => (
-        <Color key={color.id} color={color} />
+        <Color key={color.id} color={color} onDeleteColor={handleDeleteColor} onEditColor={handleEditColor}/>
       ))}
     </>
   );
